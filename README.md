@@ -48,43 +48,42 @@
 - **QSQL Queries** → Fast aggregation & analytics.
 
 ### Explanation of Key Files
-csv_loader.py → Reads inventory & stock loan data from CSV.
-📌 kdb_connector.py → Handles KDB+ connection & queries.
-📌 efficiency_metrics.py → Calculates inventory KPIs.
-📌 optimization.py → Uses linear programming for stock allocation.
-📌 time_series.py → Implements forecasting models.
-📌 logger.py → Custom logging mechanism.
-📌 config.py → Stores all configuration settings.
+- `csv_loader.py` → Reads inventory & stock loan data from CSV.
+- `kdb_connector.py` → Handles KDB+ connection & queries.
+- `efficiency_metrics.py` → Calculates inventory KPIs.
+- `optimization.py` → Uses linear programming for stock allocation.
+- `time_series.py` → Implements forecasting models.
+- `logger.py` → Custom logging mechanism.
+- `config.py` → Stores all configuration settings.
 
 ## Setup & Installation
-Prerequisites
+### Prerequisites
+- Python 3.9+
+- pip & virtualenv
+- KDB+ installed (for later phases)
 
-✅ Python 3.9+
-✅ pip & virtualenv
-✅ KDB+ installed (for later phases)
-
- Setup Instructions
+### Setup Instructions
 #### Clone the repository
-git clone https://github.com/your-repo/inventory_analysis_project.git
-cd inventory_analysis_project
+`git clone https://github.com/UtsavParashar/PrimeBrokerageInventoryEfficiencyAndStockLoan.git`
+`cd inventory_analysis_project`
 
 #### Create virtual environment & install dependencies
-python -m venv venv
-source venv/bin/activate  # (Windows: venv\Scripts\activate)
-pip install -r requirements.txt
+`python -m venv venv`
+`source venv/bin/activate  # (Windows: venv\Scripts\activate)`
+`pip install -r requirements.txt`
 
-** Running the Project**
-# Run data ingestion (CSV Processing)
-python src/data_ingestion/csv_loader.py
+### Running the Project**
+- Run data ingestion (CSV Processing)
+`python src/data_ingestion/csv_loader.py`
 
-# Run inventory analysis
-python src/analysis/efficiency_metrics.py
+- Run inventory analysis
+`python src/analysis/efficiency_metrics.py`
 
-# Run optimization model
-python src/analysis/optimization.py
+- Run optimization model
+`python src/analysis/optimization.py`
 
-# Run forecasting
-python src/forecasting/time_series.py
+- Run forecasting
+`python src/forecasting/time_series.py`
 
 
 
