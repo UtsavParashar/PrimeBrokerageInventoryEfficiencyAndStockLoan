@@ -1,0 +1,76 @@
+[{
+    "inventoryData": [
+      {
+        "columnName": "tradeDate",
+        "dataType": "YYYY-MM-DD",
+        "description": "Date of the inventory record"
+      },
+      {
+        "columnName": "securityId",
+        "dataType": "string",
+        "description": "Unique identifier (ISIN, CUSIP)"
+      },
+      {
+        "columnName": "securityName",
+        "dataType": "string",
+        "description": "Security name"
+      },
+      {
+        "columnName": "quantityAvailable",
+        "dataType": "integer",
+        "description": "Shares available for lending"
+      },
+      {
+        "columnName": "marketPrice",
+        "dataType": "float",
+        "description": "Market price per share"
+      },
+      {
+        "columnName": "region",
+        "dataType": "string",
+        "description": "Market region (EMEA, APAC, US)"
+      }
+    ]
+  },
+
+  {
+    "stockLoanData": [
+      {
+        "columnName": "loanDate",
+        "dataType": "YYYY-MM-DD",
+        "description": "Date when the loan occurred"
+      },
+      {
+        "columnName": "securityId",
+        "dataType": "string",
+        "description": "Security identifier"
+      },
+      {
+        "columnName": "counterpartyId",
+        "dataType": "string",
+        "description": "Unique counterparty ID"
+      },
+      {
+        "columnName": "quantityBorrowed",
+        "dataType": "integer",
+        "description": "Number of shares borrowed"
+      },
+      {
+        "columnName": "quantityReturned",
+        "dataType": "integer",
+        "description": "Shares returned by borrower"
+      },
+      {
+        "columnName": "loanFee",
+        "dataType": "float",
+        "description": "Interest rate/fee for lending"
+      },
+      {
+        "columnName": "borrowFee",
+        "dataType": "float",
+        "description": "Fee paid by borrower"
+      }
+    ]
+  }
+
+]
