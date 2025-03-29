@@ -6,7 +6,13 @@ from multiprocessing import cpu_count
 import numpy as np
 import pandas as pd
 
-from data_ingestion.csv_loader import CSVLoader
+import sys
+import os
+
+# Add the project's root directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+
+from src.data_ingestion.csv_loader import CSVLoader
 from efficiency_strategies import EfficiencyStrategy
 
 # Configure logging
@@ -89,12 +95,13 @@ class InventoryAnalysis:
 
 # Example Usage
 if __name__ == '__main__':
-    from efficiency_strategies import BasicEfficiencyStrategy
+    from efficiency_strategies import BasicEfficiencyStrategy, AdvancedEfficiencyStrategy, OptimizationEfficiencyStrategy
 
     try:
-        strategy = BasicEfficiencyStrategy()
+        strategy = OptimizationEfficiencyStrategy()
         analysis = InventoryAnalysis(strategy)
 
-        asyncio.run(analysis.run_analysis('data/inventory_data.csv'))
+        result = asyncio.run(analysis.run_analysis('data/inventory_data.csv'))
+        print(result)
     except Exception as e:
         logging.error(f"Failed to complete analysis: {e}")
