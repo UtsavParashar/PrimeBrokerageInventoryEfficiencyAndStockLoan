@@ -42,6 +42,7 @@ class CSVGenerator:
             "quantityReturned": np.random.randint(0, 5000, self.num_rows),
             "loanFee": np.round(np.random.uniform(0.1, 5.0, self.num_rows), 2),
             "borrowFee": np.round(np.random.uniform(0.1, 5.0, self.num_rows), 2),
+            "rebateRate": np.round(np.random.uniform(0.1, 2.0, self.num_rows), 2),
         })
         CSVGenerator.store_csv(stock_loan_data, 'stock_loan_data.csv')
 

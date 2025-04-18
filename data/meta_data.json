@@ -69,6 +69,11 @@
         "columnName": "borrowFee",
         "dataType": "float",
         "description": "Fee paid by borrower"
+      },
+      {
+        "columnName": "rebateRate",
+        "dataType": "float",
+        "description": "Interest rate paid to borrower on cash collateral"
       }
     ]
   }
