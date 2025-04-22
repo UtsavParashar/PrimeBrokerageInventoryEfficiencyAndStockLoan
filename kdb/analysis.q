@@ -19,3 +19,19 @@
 
 update utilizationPercentage:100 * (outstandingQtyBorrowed % totalQtyAvai) from  .pb.mergedData;
 
+t:([] dt:2025.04.04 2025.04.04 2025.04.04 2025.04.04 2025.04.05 2025.04.05 2025.04.05 2025.04.05 2025.04.05;
+    ratings: `AAA`BBB`AAA`BBB`AAA`BBB`BBB`AAA`AAA;
+    side: `B`S`S`B`S`B`S`B`S;
+    notional:10*1+til 9
+ );
+
+/t: select from t where dt=2025.04.05;
+
+.up.tab:select sum notional by dt, ratings, side from t;
+.up.ratings:asc exec distinct side from .up.tab;
+.up.pvt:0!exec .up.ratings#(side!notional) by ratings:ratings from .up.tab;
+select ratings, buySellRatio:B%S  from .up.pvt
+
+([] dt:(2#2025.04.04), 2#2025.04.05),'(.up.res1, .up.res2)
+
+60%70
