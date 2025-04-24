@@ -14,28 +14,17 @@
 // Formula - Utilization Percentage = 100 * outstandingQuantityBorrowed % quantityAvailable 
 // Formula - outstandingQuantityBorrowed = sum[quantityBorrowed] - sum quantityReturned
 // quantityAvailable comes from inventoryData
-.pb.mergedData: (select totalQtyAvai: sum quantityAvailable, wavgMktPx: quantityAvailable wavg marketPrice by tradeDate, securityId from .pb.inventoryData) 
-    lj select outstandingQtyBorrowed: 0^(sum[quantityBorrowed]-sum[quantityReturned]) by tradeDate, securityId from .pb.stockLoanData;
+.pb.mergedData: 0^(select totalQtyAvai: sum quantityAvailable, wavgMktPx: quantityAvailable wavg marketPrice, sum quantityAvailable by tradeDate, securityId from .pb.inventoryData) 
+    lj select outstandingQtyBorrowed: (sum[quantityBorrowed]-sum[quantityReturned]), wtAvgLoanFee: quantityBorrowed wavg loanFee, wtAvgRebateRate: quantityBorrowed wavg rebateRate by tradeDate, securityId from .pb.stockLoanData;
 
-update utilizationPercentage:100 * (outstandingQtyBorrowed % totalQtyAvai) from  .pb.mergedData;
+update utilizationPercentage:100 * (outstandingQtyBorrowed % totalQtyAvai),
+       dailyImpact: (outstandingQtyBorrowed*wavgMktPx*wtAvgLoanFee)%360,
+       opportunityCost: (quantityAvailable - outstandingQtyBorrowed)*wavgMktPx*wtAvgRebateRate%360,
+       demandRatio: outstandingQtyBorrowed%quantityAvailable
+    from  .pb.mergedData;
 
-t:([] dt:2025.04.04 2025.04.04 2025.04.04 2025.04.04 2025.04.05 2025.04.05 2025.04.05 2025.04.05 2025.04.05;
-    ratings: `AAA`BBB`AAA`BBB`AAA`BBB`BBB`AA`AAA;
-    side: `B`S`S`B`S`B`S`B`S;
-    notional:10*1+til 9
- );
 
-/t: select from t where dt=2025.04.05;
 
-.up.tab:select sum notional by dt, ratings, side from t;
-.up.ratings:asc exec distinct side from .up.tab;
-.up.pvt:0!exec .up.ratings#(side!notional) by ratings:ratings from .up.tab;
-select ratings, buySellRatio:B%S  from .up.pvt
 
-([] dt:(2#2025.04.04), 2#2025.04.05),'(.up.res1, .up.res2)
 
-60%70
 
-0!select buySellRatio:{(%). value exec sum notional by side from x}([] side;notional) by dt,ratings from t
-exec ratio:{x[`B]%x`S}sum each notional group side by dt,ratings from t
-exec ratio:0^(%).(sum each notional group side)`B`S by dt,ratings from t
